@@ -1,101 +1,106 @@
-import Image from "next/image";
+"use client";  // Add this line
+
+import { useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    const [formData, setFormData] = useState({
+        fullName: '',
+        location: '',
+        email: '',
+        phoneNumber: '',
+        courseType: '',
+        grade: '',
+    });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert('Registration successful');
+        } else {
+            alert(`Registration failed: ${data.message}`);
+        }
+    };
+
+    return (
+        <div className="bg-gradient-to-b from-purple-800 to-black h-screen flex items-center justify-center">
+            <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-lg w-80">
+                <h2 className="text-2xl font-semibold text-white mb-2">Registration Form</h2>
+                <p className="text-white mb-4">Register now, enjoy free trial for one month</p>
+                <form onSubmit={handleSubmit}>
+                    {/* Full Name */}
+                    <div className="mb-4">
+                        <label className="block text-white mb-1" htmlFor="full-name">Full Name (Name with Initials)</label>
+                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="text" id="fullName" value={formData.fullName} onChange={handleChange} placeholder="Name" />
+                    </div>
+
+                    {/* Location */}
+                    <div className="mb-4">
+                        <label className="block text-white mb-1" htmlFor="location">Location</label>
+                        <select className="w-full p-2 rounded bg-white bg-opacity-20 text-white" id="location" value={formData.location} onChange={handleChange}>
+                            <option>Select Location</option>
+                            <option>Sri Lanka</option>
+                            <option>India</option>
+                            <option>Canada</option>
+                            <option>Australia</option>
+                            <option>UK</option>
+                        </select>
+                    </div>
+
+                    {/* Email */}
+                    <div className="mb-4">
+                        <label className="block text-white mb-1" htmlFor="email">Email</label>
+                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="email" id="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" />
+                    </div>
+
+                    {/* Phone Number */}
+                    <div className="mb-4">
+                        <label className="block text-white mb-1" htmlFor="phoneNumber">Phone Number</label>
+                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="text" id="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" />
+                    </div>
+
+                    {/* Course Type */}
+                    <div className="mb-4">
+                        <label className="block text-white mb-1" htmlFor="courseType">Course Type</label>
+                        <select className="w-full p-2 rounded bg-white bg-opacity-20 text-white" id="courseType" value={formData.courseType} onChange={handleChange}>
+                            <option>Select Course Type</option>
+                            <option>IGCSE Computer Science Edexcel</option>
+                            <option>IGCSE ICT Edexcel</option>
+                            <option>GCE CS Edexcel</option>
+                            <option>IA/L-IT</option>
+                            <option>Computer Science AS</option>
+                            <option>Computer Science A2</option>
+                        </select>
+                    </div>
+
+                    {/* Grade */}
+                    <div className="mb-4">
+                        <label className="block text-white mb-1" htmlFor="grade">Grade</label>
+                        <select className="w-full p-2 rounded bg-white bg-opacity-20 text-white" id="grade" value={formData.grade} onChange={handleChange}>
+                            <option>Select Grade</option>
+                            <option>AL</option>
+                            <option>OL</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" className="w-full p-2 rounded bg-purple-600 text-white">Register</button>
+                </form>
+            </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
