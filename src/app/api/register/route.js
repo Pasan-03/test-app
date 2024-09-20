@@ -1,18 +1,22 @@
+// File: /app/api/register/route.js
+
 import connectToDatabase from '@/lib/mongodb';
 import Registration from '@/models/Registration';
 
 export async function POST(req) {
     await connectToDatabase();
 
-    const { fullName, location, email, phoneNumber, courseType, grade } = await req.json();
-
-    if (!fullName || !location || !email || !phoneNumber || !courseType || !grade) {
-        return new Response(JSON.stringify({ message: 'Missing required fields' }), {
-            status: 400,
-        });
-    }
-
     try {
+        const { fullName, location, email, phoneNumber, courseType, grade, password } = await req.json();
+
+        // Validate input fields
+        if (!fullName || !location || !email || !phoneNumber || !courseType || !grade || !password) {
+            return new Response(JSON.stringify({ message: 'Missing required fields' }), {
+                status: 400,
+            });
+        }
+
+        // Create new user
         const newRegistration = new Registration({
             fullName,
             location,
@@ -20,13 +24,17 @@ export async function POST(req) {
             phoneNumber,
             courseType,
             grade,
+            password,
         });
+
+        // Save user to database
         await newRegistration.save();
 
         return new Response(JSON.stringify({ message: 'Registration successful' }), {
             status: 201,
         });
     } catch (error) {
+        console.error('Registration failed:', error);  // Log the error
         return new Response(JSON.stringify({ message: 'Registration failed', error: error.message }), {
             status: 500,
         });
