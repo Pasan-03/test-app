@@ -26,8 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
-!.env
+.env.local  # Allow .env.local to be tracked
+.env*.local  # Ignore other env files with .local extension
+!.env        # Allow .env to be tracked
 
 # vercel
 .vercel
