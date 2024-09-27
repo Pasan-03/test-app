@@ -13,6 +13,9 @@ export default function Register() {
         password: '',  // Add password field to state
     });
 
+    const [showPopup, setShowPopup] = useState(false);  // Controls whether the popup is shown
+    const [popupMessage, setPopupMessage] = useState('');  // Message to display in the popup
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -31,83 +34,107 @@ export default function Register() {
         });
 
         const data = await response.json();
+
         if (response.ok) {
             alert('Registration successful');
         } else {
-            alert(`Registration failed: ${data.message}`);
+            if (data.message === 'Email already in use') {
+                // Show the popup and set the message
+                setPopupMessage('The email is already in use. Please use a different email.');
+                setShowPopup(true);  // Show the popup
+            } else {
+                alert(`Registration failed: ${data.message}`);
+            }
         }
     };
 
     return (
-        <div className="bg-gradient-to-b from-gray-800 to-black min-h-screen flex items-center justify-center p-4">
-            <div className="bg-gray-900 bg-opacity-90 p-8 rounded-lg shadow-lg w-full max-w-md overflow-auto">
-                <h2 className="text-2xl font-semibold text-white mb-4">Registration Form</h2>
-                <p className="text-white mb-4">Register now, enjoy free trial for one month</p>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Full Name */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="fullName">Full Name (Name with Initials)</label>
-                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="text" id="fullName" value={formData.fullName} onChange={handleChange} placeholder="Name" />
-                    </div>
+        <div className="relative">
+            {/* Registration Form */}
+            <div className="bg-gradient-to-b from-gray-800 to-black min-h-screen flex items-center justify-center p-4">
+                <div className="bg-gray-900 bg-opacity-90 p-8 rounded-lg shadow-lg w-full max-w-md overflow-auto">
+                    <h2 className="text-2xl font-semibold text-white mb-4">Registration Form</h2>
+                    <p className="text-white mb-4">Register now, enjoy free trial for one month</p>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Full Name */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="fullName">Full Name (Name with Initials)</label>
+                            <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="text" id="fullName" value={formData.fullName} onChange={handleChange} placeholder="Name" />
+                        </div>
 
-                    {/* Location */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="location">Location</label>
-                        <select className="w-full p-2 rounded bg-gray-800 text-white" id="location" value={formData.location} onChange={handleChange}>
-                            <option value="">Select Location</option>
-                            <option>Sri Lanka</option>
-                            <option>India</option>
-                            <option>Canada</option>
-                            <option>Australia</option>
-                            <option>UK</option>
-                        </select>
-                    </div>
+                        {/* Location */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="location">Location</label>
+                            <select className="w-full p-2 rounded bg-gray-800 text-white" id="location" value={formData.location} onChange={handleChange}>
+                                <option value="">Select Location</option>
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>Canada</option>
+                                <option>Australia</option>
+                                <option>UK</option>
+                            </select>
+                        </div>
 
-                    {/* Email */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="email">Email</label>
-                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="email" id="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" />
-                    </div>
+                        {/* Email */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="email">Email</label>
+                            <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="email" id="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" />
+                        </div>
 
-                    {/* Phone Number */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="phoneNumber">Phone Number</label>
-                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="text" id="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" />
-                    </div>
+                        {/* Phone Number */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="phoneNumber">Phone Number</label>
+                            <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="text" id="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" />
+                        </div>
 
-                    {/* Course Type */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="courseType">Course Type</label>
-                        <select className="w-full p-2 rounded bg-gray-800 text-white" id="courseType" value={formData.courseType} onChange={handleChange}>
-                            <option value="">Select Course Type</option>
-                            <option>IGCSE Computer Science Edexcel</option>
-                            <option>IGCSE ICT Edexcel</option>
-                            <option>GCE CS Edexcel</option>
-                            <option>IA/L-IT</option>
-                            <option>Computer Science AS</option>
-                            <option>Computer Science A2</option>
-                        </select>
-                    </div>
+                        {/* Course Type */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="courseType">Course Type</label>
+                            <select className="w-full p-2 rounded bg-gray-800 text-white" id="courseType" value={formData.courseType} onChange={handleChange}>
+                                <option value="">Select Course Type</option>
+                                <option>IGCSE Computer Science Edexcel</option>
+                                <option>IGCSE ICT Edexcel</option>
+                                <option>GCE CS Edexcel</option>
+                                <option>IA/L-IT</option>
+                                <option>Computer Science AS</option>
+                                <option>Computer Science A2</option>
+                            </select>
+                        </div>
 
-                    {/* Grade */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="grade">Grade</label>
-                        <select className="w-full p-2 rounded bg-gray-800 text-white" id="grade" value={formData.grade} onChange={handleChange}>
-                            <option value="">Select Grade</option>
-                            <option>AL</option>
-                            <option>OL</option>
-                        </select>
-                    </div>
+                        {/* Grade */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="grade">Grade</label>
+                            <select className="w-full p-2 rounded bg-gray-800 text-white" id="grade" value={formData.grade} onChange={handleChange}>
+                                <option value="">Select Grade</option>
+                                <option>AL</option>
+                                <option>OL</option>
+                            </select>
+                        </div>
 
-                    {/* Password */}
-                    <div className="mb-4">
-                        <label className="block text-white mb-1" htmlFor="password">Password</label>
-                        <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="password" id="password" value={formData.password} onChange={handleChange} placeholder="Password" />
-                    </div>
+                        {/* Password */}
+                        <div className="mb-4">
+                            <label className="block text-white mb-1" htmlFor="password">Password</label>
+                            <input className="w-full p-2 rounded bg-white bg-opacity-20 text-white" type="password" id="password" value={formData.password} onChange={handleChange} placeholder="Password" />
+                        </div>
 
-                    <button type="submit" className="w-full p-2 rounded bg-purple-600 text-white">Register</button>
-                </form>
+                        <button type="submit" className="w-full p-2 rounded bg-purple-600 text-white">Register</button>
+                    </form>
+                </div>
             </div>
+
+            {/* Popup Notification Modal */}
+            {showPopup && (
+                <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <p className="mb-4 text-lg">{popupMessage}</p>
+                        <button
+                            onClick={() => setShowPopup(false)}  // Hide the popup on click
+                            className="bg-purple-600 text-white px-4 py-2 rounded-lg">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
