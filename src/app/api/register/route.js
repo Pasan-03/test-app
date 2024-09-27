@@ -16,6 +16,12 @@ export async function POST(req) {
             });
         }
 
+        // Check if email already exists
+        const existingUser = await Registration.findOne({ email });
+        if (existingUser) {
+            return new Response(JSON.stringify({ message: 'Email already in use' }), { status: 409 });
+        }
+
         // Create new user
         const newRegistration = new Registration({
             fullName,
