@@ -1,0 +1,249 @@
+/* Dark theme base */
+
+/* Home Container */
+.homeContainer {
+    background-color: #1c1c1c;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    padding: 0; /* Remove padding */
+}
+
+/* Container */
+.eduFusion {
+    max-width: 100%;
+    margin: 0; /* Remove margin */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 1rem; /* Adjusted to rem */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.navbarLinks {
+    display: flex;
+    list-style: none; /* Use shorthand for list style */
+    margin: 0;
+    padding: 0;
+}
+
+.navbarLinks li {
+    margin-left: 2rem; /* Adjusted to rem */
+}
+
+.navbarLinks a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem; /* Adjusted to rem */
+}
+
+/* Navbar Buttons */
+.navbarButtons {
+    display: flex;
+    margin-left: 1rem; /* Optional: add some space from the navbar links */
+}
+
+.navbarButtons button {
+    margin-left: 1rem; /* Adjusted to rem */
+    padding: 0.625rem 1.25rem; /* Adjusted to rem */
+    font-size: 1rem; /* Adjusted to rem */
+    border: none;
+    border-radius: 0.5rem; /* Add this line for rounded corners */
+    cursor: pointer;
+}
+
+.signIn {
+    background-color: #444;
+    color: #eee;
+}
+
+.register {
+    background-color: #8BC6C6;
+    color: white;
+}
+
+/* Hero Section */
+.heroSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Set height for the hero section */
+    max-height: 600px; /* Limit maximum height */
+    background-image: url('/banner.jpg'); /* Adjust the path if needed */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    text-align: center;
+    position: relative; /* Added to position overlay correctly */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.overlay {
+    position: absolute; /* Changed to absolute for better positioning */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust centering */
+    z-index: 1; /* Ensure text is above background */
+    padding: 1rem; /* Add some padding */
+}
+
+.overlay h1 {
+    color: white;
+    font-size: 4rem; /* Use rem for scalability */
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .overlay h1 {
+        font-size: 2.5rem; /* Adjust for smaller screens */
+    }
+
+    .heroSection {
+        height: 50vh; /* Adjust height for smaller screens */
+    }
+}
+
+/* Slogan Section */
+.sloganSection {
+    padding: 2rem; /* Adjusted to rem */
+    text-align: center;
+}
+
+/* Buttons Section */
+.buttonsSection {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    padding: 2rem; /* Adjusted to rem */
+}
+
+.eduButton {
+    background-color: #8BC6C6;
+    color: #fff;
+    padding: 1rem 2rem; /* Adjusted to rem */
+    border: none;
+    border-radius: 0.5rem; /* Add this line for rounded corners */
+    margin: 0.5rem; /* Add some margin */
+    cursor: pointer;
+}
+
+/* Vision Section */
+.visionSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; /* Adjusted to rem */
+    background-color: #292929;
+}
+
+.visionContent {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.visionImage {
+    margin-right: 2rem; /* Add some space between image and text */
+}
+
+/* Experts Section */
+.expertsSection {
+    padding: 3rem 1.25rem; /* Adjusted to rem */
+    text-align: center;
+    background-color: #292929;
+}
+
+.expertsContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: center; /* Center align content */
+}
+
+.expertCard {
+    background-color: #333;
+    margin: 1rem; /* Adjusted to rem */
+    padding: 1.5rem; /* Adjusted to rem */
+    border-radius: 0.625rem; /* Adjusted to rem */
+    flex: 1 1 200px; /* Responsive sizing for expert items */
+    text-align: center;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5); /* Add shadow for pop-out effect */
+}
+
+/* Testimonial Section */
+.testimonialSection {
+    padding: 3rem 1.25rem; /* Adjusted to rem */
+    text-align: center;
+    background-color: #222;
+}
+
+.testimonialContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: center; /* Center align content */
+}
+
+.testimonialCard {
+    background-color: #333;
+    margin: 1rem; /* Adjusted to rem */
+    padding: 1.5rem; /* Adjusted to rem */
+    border-radius: 0.625rem; /* Adjusted to rem */
+    flex: 1 1 200px; /* Responsive sizing for testimonial items */
+    text-align: center;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5); /* Add shadow for pop-out effect */
+}
+
+/* Footer Section */
+.footerSection {
+    background-color: #333;
+    color: #ffffff;
+    padding: 2rem 1.25rem; /* Adjusted to rem */
+    text-align: center;
+}
+
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerColumns {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem; /* Add space between columns and bottom */
+}
+
+.footerColumn {
+    flex: 1; /* Allow equal width for footer columns */
+    margin: 0 1rem; /* Add space between columns */
+}
+
+.footerColumn h4 {
+    margin-bottom: 1rem; /* Add space below heading */
+}
+
+.footerColumn ul {
+    list-style-type: none; /* Remove list bullets */
+    padding: 0; /* Remove padding */
+}
+
+.footerColumn li {
+    margin: 0.5rem 0; /* Add space between list items */
+}
+
+.footerColumn a {
+    text-decoration: none; /* Remove underline */
+    color: #ffffff;
+}
+
+.footerBottom {
+    border-top: 1px solid #444;
+    padding-top: 1rem; /* Add space above */
+}
+
+/* Social Icons */
+.socialIcons a {
+    color: #ffffff;
+    margin: 0 0.5rem; /* Add space between icons */
+    font-size: 1.5rem; /* Adjust size */
+}

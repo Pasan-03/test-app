@@ -3,3 +3,31 @@
 @tailwind utilities;
 
 /* Add any custom global CSS below */
+/* Global Reset */
+/* Global Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    font-family: 'Arial', sans-serif; /* Global font family */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and borders are included in total width/height */
+}
+
+* {
+    box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
+}
+
+/* globals.css */
+
+/* Dark theme base */
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
